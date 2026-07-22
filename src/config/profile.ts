@@ -71,6 +71,13 @@ export const profileConfig = {
   ],
   projects: [
     {
+      name: "Hanchu (ಹಂಚು)",
+      period: "07/2026 - Present",
+      description: "Open-source, local-first vault for BDS and MDS dental students to manage clinical quotas and securely hand over patient records to juniors—named for the Kannada spirit of sharing knowledge freely. Zero-backend “Smart Lens” architecture: Vite PWA with hard-caching Service Worker, OPFS + wa-sqlite for structured metadata (AES-GCM at the app layer), File System Access API for unencrypted media on disk, local Tesseract OCR, and offline ZIP handover. Dual recovery model (JSON dumps + OPFS safety net) and a phased open-core strategy around the crypto surface.",
+      link: 'https://hanchu.tridenta.in',
+      images: []
+    },
+    {
       name: "Tridenta",
       period: "04/2026 - Present",
       description: "All-in-one, AI-first OS for dentists to manage their clinics, consultations, and academics. Deep research and planning through Claude. Features React micro-frontends with Module Federation, a Fastify / Node.js backend, Turborepo build orchestrator, and Rspack bundler, using a local-first architecture to favor high performance with minimal server costs. It was completely planned, built, and hosted by me.",
