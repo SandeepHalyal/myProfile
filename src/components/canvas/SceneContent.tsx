@@ -110,7 +110,7 @@ export default function SceneContent({ currentSection, onSectionChange }: SceneC
         </Float>
       </group>
 
-      {/* SECTION 1: WORK EXPERIENCE (Samprithi Farms & RoaDo) */}
+      {/* SECTION 1: WORK EXPERIENCE (RoaDo & Samprithi) */}
       {/* Centered at [-15, 0, -15] */}
       <group position={[-15, 0, -15]}>
         <Float speed={2} rotationIntensity={0.1} floatIntensity={0.2}>
@@ -129,11 +129,11 @@ export default function SceneContent({ currentSection, onSectionChange }: SceneC
         <FloatingCard
           position={[-3.5, 0, 0]}
           title="Samprithi Farms"
-          subtitle="Founder & Care Taker (1500+ Chickens)"
+          subtitle="Founder & Systems Builder"
           accentColor="#10b981"
           image={
-            profileConfig.experience[0].images && profileConfig.experience[0].images.length > 0
-              ? profileConfig.experience[0].images[0]
+            profileConfig.experience[1].images && profileConfig.experience[1].images.length > 0
+              ? profileConfig.experience[1].images[0]
               : undefined
           }
         />
@@ -142,11 +142,11 @@ export default function SceneContent({ currentSection, onSectionChange }: SceneC
         <FloatingCard
           position={[2.5, 0, -2]}
           title="RoaDo Logistics"
-          subtitle="Full stack Developer (Core Dev & Lead)"
+          subtitle="MERN Dev +"
           accentColor="#0ea5e9"
           image={
-            profileConfig.experience[1].images && profileConfig.experience[1].images.length > 0
-              ? profileConfig.experience[1].images[0]
+            profileConfig.experience[0].images && profileConfig.experience[0].images.length > 0
+              ? profileConfig.experience[0].images[0]
               : undefined
           }
         />

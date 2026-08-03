@@ -119,7 +119,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
               </blockquote>
 
               <p className="text-sm text-zinc-400 leading-relaxed">
-                A Full stack Developer with an organic side. Transitioning between complex micro-frontends, AI integrations, and raising over 1500+ chickens at Samprithi Farms. Impeccable passion drives my technical and entrepreneurial adventures.
+                A Forward Deployed Engineer specializing in building premium web applications from 0-1, launching voice & text AI conversation agents, and developing high-security, HIPAA-compliant local-first apps with AES-256 encryption. From robust, decentralized systems to real-time AI orchestration, I deliver production-ready solutions with relentless execution.
               </p>
 
               {/* Social Buttons */}
@@ -213,7 +213,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                             rel="noreferrer"
                             className="text-xs text-accent-green hover:underline flex items-center gap-1 mt-1 shrink-0 pointer-events-auto"
                           >
-                            Visit Farm <ExternalLink size={12} />
+                            Visit Site <ExternalLink size={12} />
                           </a>
                         )}
                       </div>
@@ -231,11 +231,11 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                       ))}
                     </ul>
 
-                    {/* Image handling & hint for farm images */}
+                    {/* Image handling & hint for operations images */}
                     {idx === 1 && (
                       <div className="mt-4 border-t border-zinc-800 pt-4">
                         <h4 className="text-xs font-bold text-zinc-400 mb-2 flex items-center gap-1.5">
-                          <Sparkles size={14} className="text-accent-green" /> Samprithi Farms Photo Gallery
+                          <Sparkles size={14} className="text-accent-green" /> Operations & Systems Gallery
                         </h4>
                         
                         {exp.images && exp.images.length > 0 ? (
@@ -253,7 +253,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                               >
                                 <img
                                   src={img}
-                                  alt={`Farm image ${iIdx + 1}`}
+                                  alt={`Operations image ${iIdx + 1}`}
                                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                                 />
                               </div>
@@ -272,7 +272,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                                 {/* Background Image */}
                                 <img
                                   src={exp.images[2]}
-                                  alt="More farm images"
+                                  alt="More operations images"
                                   className="object-cover w-full h-full filter blur-[1px] group-hover:scale-105 transition-transform duration-300"
                                 />
                                 {/* Overlay Mask */}
@@ -291,7 +291,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                           <div className="rounded-xl border border-dashed border-zinc-800 p-4 text-center bg-zinc-950/50 flex flex-col items-center gap-2">
                             <Info size={16} className="text-accent-green" />
                             <p className="text-xs text-zinc-400 max-w-sm">
-                              No photos added yet. You can easily drag and drop your farm photos into <code className="text-accent-green bg-zinc-900 px-1 rounded">public/images/farm/</code>, add the file paths in <code className="text-accent-green bg-zinc-900 px-1 rounded">src/config/profile.ts</code>, and they will load here and in 3D dynamically!
+                              No photos added yet. You can easily drag and drop your project or operations photos into <code className="text-accent-green bg-zinc-900 px-1 rounded">public/images/farm/</code>, add the file paths in <code className="text-accent-green bg-zinc-900 px-1 rounded">src/config/profile.ts</code>, and they will load here and in 3D dynamically!
                             </p>
                           </div>
                         )}

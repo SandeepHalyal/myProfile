@@ -28,6 +28,8 @@ const ALL_COMMANDS = [
   "gui",
   "ls",
   "npm run farm",
+  "npm run agent",
+  "npm run deploy",
   "pwd",
   "date",
   "echo",
@@ -392,7 +394,7 @@ export default function TerminalMode({ onClose }: TerminalModeProps) {
               <span className="text-accent-green">resume whoami</span>
               <span>Display bio, contact info, and profiles</span>
               <span className="text-accent-green">resume experience</span>
-              <span>List detailed work history (RoaDo, Samprithi Farms)</span>
+              <span>List detailed work history (RoaDo, Samprithi)</span>
               <span className="text-accent-green">resume projects</span>
               <span>View personal projects and live website links</span>
               <span className="text-accent-green">resume skills</span>
@@ -407,7 +409,7 @@ export default function TerminalMode({ onClose }: TerminalModeProps) {
               <span>Return to the 3D graphical portfolio interface</span>
             </div>
             <p className="text-xs text-zinc-500 pt-1">
-              Tip: You can also try standard terminal commands like `ls`, `cd`, `sudo`, or `npm run farm`.
+              Tip: You can also try standard terminal commands like `ls`, `cd`, `sudo`, `npm run agent`, `npm run deploy`, or `npm run farm`.
             </p>
           </div>
         );
@@ -576,11 +578,37 @@ export default function TerminalMode({ onClose }: TerminalModeProps) {
         finalContent = (
           <div className="font-mono text-zinc-300 space-y-2">
             <p className="text-zinc-500">&gt; samprithi-farms@1.0.0 farm</p>
-            <p className="text-zinc-500">&gt; node scripts/feed-chickens.js</p>
-            <p className="pt-2 text-accent-green">🌾 Feeding 1500+ Country Chickens...</p>
-            <p className="text-accent-blue">🥚 Egg production check: 300+ layers operating at peak efficiency</p>
-            <p className="text-yellow-600"> Broccoli, Spinach and Tomatoes status: Growing in organic fashion</p>
-            <p className="text-green-500 font-bold">[SUCCESS] Samprithi Farms operating at optimal parameters!</p>
+            <p className="text-zinc-500">&gt; node scripts/systems-check.js</p>
+            <p className="pt-2 text-accent-green">📊 Checking Samprithi Farms Logistics Automation Platform...</p>
+            <p className="text-zinc-400">📦 Order management API: Active</p>
+            <p className="text-zinc-400">🗺️ Route optimization module: 12 routes computed</p>
+            <p className="text-zinc-400">💬 Customer notification engine: 98.4% delivery rate</p>
+            <p className="text-green-500 font-bold">[SUCCESS] Samprithi Farms operational automation systems operating at optimal parameters!</p>
+          </div>
+        );
+      } else if (cmdLower === "npm run agent") {
+        finalContent = (
+          <div className="font-mono text-zinc-300 space-y-2">
+            <p className="text-zinc-500">&gt; ai-agents@2.0.0 agent</p>
+            <p className="text-zinc-500">&gt; ts-node scripts/run-conversational-agent.ts</p>
+            <p className="pt-2 text-accent-blue">⚡ Initializing Voice & Text Conversational Pipeline...</p>
+            <p className="text-zinc-400">🤖 Loading LLM Orchestrator (Gemini 3.5 Flash)... OK</p>
+            <p className="text-zinc-400">🎙️ Binding WebRTC Voice Stream / Vapi Endpoint... OK</p>
+            <p className="text-zinc-400">📚 Indexing RAG Knowledge Base (Vector Store)... 1,420 chunks loaded</p>
+            <p className="text-accent-green">🗣️ [AGENT ACTIVE] "Hello, I am your conversational AI assistant. How can I help you today?"</p>
+            <p className="text-green-500 font-bold">[SUCCESS] Voice & Text AI Agent running locally on port 5001!</p>
+          </div>
+        );
+      } else if (cmdLower === "npm run deploy") {
+        finalContent = (
+          <div className="font-mono text-zinc-300 space-y-2">
+            <p className="text-zinc-500">&gt; nextjs-app@1.0.0 deploy</p>
+            <p className="text-zinc-500">&gt; vercel deploy --prod</p>
+            <p className="pt-2 text-accent-blue">🚀 Building production-ready Web App (0-1 structure)...</p>
+            <p className="text-zinc-400">📦 Compiling static chunks, assets & dynamic pages... OK</p>
+            <p className="text-zinc-400">🌐 Creating global edge routing configuration... OK</p>
+            <p className="text-accent-green">🔗 Production URL: https://tridenta.tridenta.in</p>
+            <p className="text-green-500 font-bold">[SUCCESS] Web Application successfully deployed from 0 to 1 at the edge!</p>
           </div>
         );
       } else {

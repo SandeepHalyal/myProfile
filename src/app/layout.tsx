@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sandeep Halyal | Full stack Developer & Organic Farmer",
-  description: "Personal 3D portfolio of Sandeep Halyal, showcasing professional Full stack projects, Samprithi Farms, and tech innovations.",
-  keywords: ["Sandeep Halyal", "Full stack", "Organic Farming", "React", "Next.js", "Three.js", "Portfolio"],
+  title: "Sandeep Halyal | MERN, AI Agents, 0-1",
+  description: "Personal 3D portfolio of Sandeep Halyal, Forward Deployed Engineer specializing in 0-1 web apps, voice & text AI agents, and high-security, HIPAA-compliant local-first applications with AES-256 encryption.",
+  keywords: ["Sandeep Halyal", "MERN Dev","Forward Deployed Engineer", "AI Engineer", "Conversational AI", "Voice Agents", "HIPAA Compliance", "AES-256", "Local-First Architecture", "React", "Next.js", "Three.js", "Portfolio"],
 };
 
 export default function RootLayout({
