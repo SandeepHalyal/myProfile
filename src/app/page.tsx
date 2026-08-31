@@ -6,11 +6,13 @@ import OverlayUI from "@/components/ui/OverlayUI";
 import TerminalMode from "@/components/ui/TerminalMode";
 import { Terminal, Monitor, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { profileConfig } from "@/config/profile";
 
 type ExperienceMode = "prompt" | "gui" | "terminal";
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
+  const [activeProj, setActiveProj] = useState(0);
   const [experienceMode, setExperienceMode] = useState<ExperienceMode>("prompt");
   const [isMounted, setIsMounted] = useState(false);
 
@@ -81,16 +83,34 @@ export default function Home() {
     if (experienceMode !== "gui") return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        setCurrentSection((prev) => Math.min(3, prev + 1));
-      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        setCurrentSection((prev) => Math.max(0, prev - 1));
+      // Don't intercept if typing in an input or textarea
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (currentSection === 2) {
+        // In Personal Projects section: Arrow Down & Up switch between projects
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          setActiveProj((prev) => (prev + 1) % profileConfig.projects.length);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          setActiveProj((prev) => (prev - 1 + profileConfig.projects.length) % profileConfig.projects.length);
+        } else if (e.key === "ArrowRight") {
+          setCurrentSection((prev) => Math.min(3, prev + 1));
+        } else if (e.key === "ArrowLeft") {
+          setCurrentSection((prev) => Math.max(0, prev - 1));
+        }
+      } else {
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          setCurrentSection((prev) => Math.min(3, prev + 1));
+        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          setCurrentSection((prev) => Math.max(0, prev - 1));
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [experienceMode]);
+  }, [experienceMode, currentSection]);
 
   if (!isMounted) {
     return <main className="w-screen h-screen bg-[#030303]" />;
@@ -189,6 +209,8 @@ export default function Home() {
           currentSection={currentSection} 
           onSectionChange={setCurrentSection} 
           onToggleTerminal={() => selectMode("terminal")}
+          activeProj={activeProj}
+          onActiveProjChange={setActiveProj}
         />
       )}
     </main>

@@ -70,23 +70,47 @@ function cloneAndSliceNode(node: React.ReactNode, maxLength: number): { element:
   if (Array.isArray(node)) {
     let currentLength = 0;
     const elements: React.ReactNode[] = [];
-    for (const child of node) {
+    for (let i = 0; i < node.length; i++) {
+      const child = node[i];
       if (currentLength >= maxLength) break;
       const { element, length } = cloneAndSliceNode(child, maxLength - currentLength);
-      elements.push(element);
+      if (element !== null && element !== undefined) {
+        if (React.isValidElement(element)) {
+          const validEl = element as React.ReactElement<any>;
+          elements.push(React.cloneElement(validEl, { key: validEl.key ?? `sliced-child-${i}` }));
+        } else {
+          elements.push(element);
+        }
+      }
       currentLength += length;
     }
     return { element: elements, length: currentLength };
   }
 
   if (React.isValidElement(node)) {
-    const props = node.props as any;
+    const validNode = node as React.ReactElement<any>;
+    const props = validNode.props as any;
+
+    if (props && props.dangerouslySetInnerHTML && typeof props.dangerouslySetInnerHTML.__html === "string") {
+      const rawHtml = props.dangerouslySetInnerHTML.__html as string;
+      const plainText = rawHtml.replace(/<[^>]+>/g, "");
+      if (maxLength >= plainText.length) {
+        return { element: validNode, length: plainText.length };
+      } else {
+        const slicedText = plainText.slice(0, maxLength);
+        return {
+          element: React.cloneElement(validNode, { dangerouslySetInnerHTML: { __html: slicedText } }),
+          length: slicedText.length,
+        };
+      }
+    }
+
     if (props && props.children !== undefined) {
       const { element: slicedChildren, length } = cloneAndSliceNode(props.children, maxLength);
-      const cloned = React.cloneElement(node, undefined, slicedChildren);
+      const cloned = React.cloneElement(validNode, undefined, slicedChildren);
       return { element: cloned, length };
     }
-    return { element: node, length: 0 };
+    return { element: validNode, length: 0 };
   }
 
   return { element: node, length: 0 };
@@ -100,6 +124,7 @@ interface TypewriterProps {
 
 function Typewriter({ children, speed = 6, onComplete }: TypewriterProps) {
   const [maxLength, setMaxLength] = useState(0);
+  const [isDone, setIsDone] = useState(false);
   const totalLengthRef = useRef(0);
   const onCompleteRef = useRef(onComplete);
 
@@ -111,7 +136,7 @@ function Typewriter({ children, speed = 6, onComplete }: TypewriterProps) {
   // Compute total text content length in dry run
   useEffect(() => {
     const { length } = cloneAndSliceNode(children, Infinity);
-    totalLengthRef.current = length;
+    totalLengthRef.current = Math.max(1, length);
   }, [children]);
 
   useEffect(() => {
@@ -120,9 +145,7 @@ function Typewriter({ children, speed = 6, onComplete }: TypewriterProps) {
       setMaxLength((prev) => {
         const next = prev + speed;
         if (next >= totalLengthRef.current) {
-          if (onCompleteRef.current) {
-            onCompleteRef.current();
-          }
+          setIsDone(true);
           return totalLengthRef.current;
         }
         frameId = requestAnimationFrame(tick);
@@ -132,6 +155,12 @@ function Typewriter({ children, speed = 6, onComplete }: TypewriterProps) {
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
   }, [children, speed]);
+
+  useEffect(() => {
+    if (isDone && onCompleteRef.current) {
+      onCompleteRef.current();
+    }
+  }, [isDone]);
 
   const { element } = cloneAndSliceNode(children, maxLength);
   return <>{element}</>;
@@ -468,10 +497,10 @@ export default function TerminalMode({ onClose }: TerminalModeProps) {
                     </a>
                   </div>
                 )}
-                <ul className="list-disc list-inside text-xs text-zinc-300 space-y-1.5 pl-1 pt-1">
+                <ul className="list-disc list-inside text-xs text-zinc-300 space-y-1.5 pl-1 pt-1 [&_b]:font-bold [&_b]:text-white">
                   {exp.achievements.map((ach, aIdx) => (
                     <li key={aIdx} className="leading-relaxed">
-                      <span>{ach}</span>
+                      <span dangerouslySetInnerHTML={{ __html: ach }} />
                     </li>
                   ))}
                 </ul>
@@ -490,7 +519,10 @@ export default function TerminalMode({ onClose }: TerminalModeProps) {
                     {proj.period}
                   </span>
                 </div>
-                <p className="text-zinc-300 text-xs leading-relaxed">{proj.description}</p>
+                <p 
+                  className="text-zinc-300 text-xs leading-relaxed [&_b]:font-bold [&_b]:text-white" 
+                  dangerouslySetInnerHTML={{ __html: proj.description }} 
+                />
                 {proj.link && (
                   <div className="text-xs">
                     <span className="text-zinc-500">URL: </span>
@@ -604,11 +636,11 @@ export default function TerminalMode({ onClose }: TerminalModeProps) {
           <div className="font-mono text-zinc-300 space-y-2">
             <p className="text-zinc-500">&gt; nextjs-app@1.0.0 deploy</p>
             <p className="text-zinc-500">&gt; vercel deploy --prod</p>
-            <p className="pt-2 text-accent-blue">🚀 Building production-ready Web App (0-1 structure)...</p>
+            <p className="pt-2 text-accent-blue">🚀 Building production-ready Web Application...</p>
             <p className="text-zinc-400">📦 Compiling static chunks, assets & dynamic pages... OK</p>
             <p className="text-zinc-400">🌐 Creating global edge routing configuration... OK</p>
             <p className="text-accent-green">🔗 Production URL: https://tridenta.tridenta.in</p>
-            <p className="text-green-500 font-bold">[SUCCESS] Web Application successfully deployed from 0 to 1 at the edge!</p>
+            <p className="text-green-500 font-bold">[SUCCESS] Web Application successfully deployed to global edge infrastructure!</p>
           </div>
         );
       } else {

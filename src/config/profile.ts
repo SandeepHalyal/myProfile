@@ -13,7 +13,7 @@ export const profileConfig = {
   },
   skills: [
     "Forward Deployed Engineering Skills",
-    "0-1 Product Development Skills",
+    "Product Architecture & Engineering Skills",
     "Self-Orchestrated AI & RAG Skills",
     "Hybrid LLM Orchestration (Local & Cloud) Skills",
     "Conversational AI (Voice & Text / STT & TTS) Skills",
@@ -31,16 +31,16 @@ export const profileConfig = {
     { name: "Hindi", proficiency: 80 },
     { name: "English", proficiency: 80 },
   ],
-  interests: ["Tech Blogging", "Bike Riding", "Poetry", "Story Writing"],
+  interests: ["Bike Riding", "Poetry", "Story Writing"],
   experience: [
     {
       role: "MERN Developer +",
       company: "RoaDo - Hicetane Logistics Innovations Private Limited",
       period: "10/2019 - Present",
       location: "Bengaluru, India",
-      description: "Progressed from core MERN full-stack developer to leading the 0-1 development and management of multiple internal applications for company operations and accounting.",
+      description: "Progressed from core MERN full-stack developer to leading the end-to-end development, architecture, and management of multiple business-critical internal applications for company operations and accounting.",
       achievements: [
-        "<b>0-1 Product Delivery:</b> Designed, built, and managed multiple business-critical internal applications for company operations and accounting from scratch, automating billing.",
+        "<b>Product Architecture & Delivery:</b> Designed, built, and managed multiple business-critical internal applications for company operations and accounting, automating billing and workflow pipelines.",
         "<b>MERN Stack Foundation:</b> Developed and scaled core logistics dashboards, micro-frontends (React), and backend APIs (Node.js/Express) using MongoDB for transaction telemetry.",
         "<b>Core Automations:</b> Built mathematical tracking models (alphanumeric UIDs), Razorpay payment integrations, and operational billing pipelines handling high-volume logistics transactions.",
         "<b>DevOps & Team Leadership:</b> Managed database migrations, configured CI/CD release pipelines, and mentored a team of 4 junior developers in agile sprint environments.",
@@ -53,11 +53,11 @@ export const profileConfig = {
       company: "Samprithi Farms",
       period: "04/2023 - 03/2025",
       location: "Bengaluru, India",
-      description: "Launched a direct-to-consumer food supply brand, building custom software for order management from 0-1.",
+      description: "Launched a direct-to-consumer food supply brand, building custom enterprise software for order management and fulfillment.",
       link: "https://www.instagram.com/samprithiorganicfarm?igsh=MWExbzIwOHNrdXVzdg==",
       achievements: [
-        "<b>0-1 Product Build:</b> Architected and deployed a custom MERN-based order management portal.",
-        "<b>Business & Partnerships:</b> Scaled retail operations from zero to partner contracts with premium organic stores and thousands of direct-to-consumer buyers.",
+        "<b>System Architecture & Build:</b> Architected and deployed a custom MERN-based order management portal.",
+        "<b>Business & Partnerships:</b> Scaled retail operations and secured partner contracts with premium organic stores and thousands of direct-to-consumer buyers.",
         "<b>Product Leadership:</b> Directed digital growth campaigns and oversaw product-market fit research and operations."
       ],
       images: [
@@ -80,14 +80,14 @@ export const profileConfig = {
     {
       name: "Tridenta",
       period: "04/2026 - Present",
-      description: "All-in-one, AI-first OS for dentists to manage clinics, consultations, and academics, designed, built, and deployed entirely on my own from scratch. <b>AI Agent Integration:</b> Built self-orchestrated voice and text conversational AI agents using a custom hybrid configuration of local and backend cloud LLMs, alongside optimized STT/TTS combinations to maximize speed and minimize cost. Architected with high-security, HIPAA-compliant parameters, React micro-frontends (Module Federation), Node.js, Turborepo, and local-first data privacy.",
+      description: "All-in-one, AI-first OS for dentists to manage clinics, consultations, and academics, engineered and deployed end-to-end. <b>AI Agent Integration:</b> Built self-orchestrated voice and text conversational AI agents using a custom hybrid configuration of local and backend cloud LLMs, alongside optimized STT/TTS combinations to maximize speed and minimize cost. Architected with high-security, HIPAA-compliant parameters, React micro-frontends (Module Federation), Node.js, Turborepo, and local-first data privacy.",
       link: "https://tridenta.in",
       images: []
     },
     {
       name: "Dwithi",
       period: "05/2025 - Present",
-      description: "A text-only conversational RAG pipeline. Features custom self-orchestrated RAG pipelines (embedding and retrieving scriptures like Mahabharata & Ramayana from MongoDB) and web-searching via Puppeteer, completely built from scratch to optimize query performance and reduce operational latency.",
+      description: "A text-only conversational RAG pipeline. Features custom self-orchestrated RAG pipelines (embedding and retrieving scriptures like Mahabharata & Ramayana from MongoDB) and web-searching via Puppeteer, engineered end-to-end to optimize query performance and reduce operational latency.",
       link: 'https://dwithi.vercel.app',
       images: []
     },

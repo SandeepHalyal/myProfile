@@ -15,8 +15,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sandeep Halyal | MERN, AI Agents, 0-1",
-  description: "Personal 3D portfolio of Sandeep Halyal, Forward Deployed Engineer specializing in 0-1 web apps, voice & text AI agents, and high-security, HIPAA-compliant local-first applications with AES-256 encryption.",
+  title: "Sandeep Halyal | Forward Deployed Engineer | AI & Full-Stack",
+  description: "Personal 3D portfolio of Sandeep Halyal, Forward Deployed Engineer specializing in scalable web applications, voice & text AI agents, and high-security, HIPAA-compliant local-first architectures with AES-256 encryption.",
   keywords: ["Sandeep Halyal", "MERN Dev","Forward Deployed Engineer", "AI Engineer", "Conversational AI", "Voice Agents", "HIPAA Compliance", "AES-256", "Local-First Architecture", "React", "Next.js", "Three.js", "Portfolio"],
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Mail,
   Phone,
@@ -16,7 +16,8 @@ import {
   Sparkles,
   Info,
   FileText,
-  Terminal
+  Terminal,
+  ArrowUpDown
 } from "lucide-react";
 import { profileConfig } from "@/config/profile";
 import { PhotoViewer } from "./PhotoViewer";
@@ -25,6 +26,8 @@ interface OverlayUIProps {
   currentSection: number;
   onSectionChange: (index: number) => void;
   onToggleTerminal: () => void;
+  activeProj?: number;
+  onActiveProjChange?: (index: number) => void;
 }
 
 const slideVariants = {
@@ -33,13 +36,40 @@ const slideVariants = {
   exit: { opacity: 0, x: -50, transition: { duration: 0.3 } },
 } as const;
 
-export default function OverlayUI({ currentSection, onSectionChange, onToggleTerminal }: OverlayUIProps) {
+export default function OverlayUI({ 
+  currentSection, 
+  onSectionChange, 
+  onToggleTerminal,
+  activeProj: controlledActiveProj,
+  onActiveProjChange
+}: OverlayUIProps) {
   const sections = ["Home", "Experience", "Projects", "Skills & Education"];
   const [activeExpTab, setActiveExpTab] = useState(0); // 0 = Samprithi Farms, 1 = RoaDo
-  const [activeProj, setActiveProj] = useState(0);
+  const [localActiveProj, setLocalActiveProj] = useState(0);
   const [photoViewerOpen, setPhotoViewerOpen] = useState(false);
   const [photoViewerImages, setPhotoViewerImages] = useState<string[]>([]);
   const [photoViewerStartIndex, setPhotoViewerStartIndex] = useState(0);
+
+  const activeProj = controlledActiveProj !== undefined ? controlledActiveProj : localActiveProj;
+  const setActiveProj = (idx: number) => {
+    if (onActiveProjChange) {
+      onActiveProjChange(idx);
+    } else {
+      setLocalActiveProj(idx);
+    }
+  };
+
+  const projectButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    if (currentSection === 2 && projectButtonsRef.current[activeProj]) {
+      projectButtonsRef.current[activeProj]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest",
+      });
+    }
+  }, [activeProj, currentSection]);
 
   const personal = profileConfig.personal;
 
@@ -119,7 +149,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
               </blockquote>
 
               <p className="text-sm text-zinc-400 leading-relaxed">
-                A Forward Deployed Engineer specializing in building premium web applications from 0-1, launching voice & text AI conversation agents, and developing high-security, HIPAA-compliant local-first apps with AES-256 encryption. From robust, decentralized systems to real-time AI orchestration, I deliver production-ready solutions with relentless execution.
+                A Forward Deployed Engineer specializing in building robust, scalable web applications, launching enterprise-ready voice & text AI conversation agents, and developing high-security, HIPAA-compliant local-first apps with AES-256 encryption. From distributed systems to real-time AI orchestration, I deliver production-ready solutions with disciplined execution.
               </p>
 
               {/* Social Buttons */}
@@ -312,9 +342,18 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
               exit="exit"
               className="glass-panel-glow pointer-events-auto p-5 sm:p-8 rounded-2xl w-full flex flex-col gap-4 sm:gap-6 max-h-[60vh] sm:max-h-[70vh] md:max-h-[80vh] overflow-y-auto"
             >
-              <h2 className="text-lg sm:text-2xl font-bold text-white flex items-center gap-1.5 sm:gap-2">
-                <BookOpen className="text-accent-blue" size={24} /> Personal Projects
-              </h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <h2 className="text-lg sm:text-2xl font-bold text-white flex items-center gap-1.5 sm:gap-2">
+                  <BookOpen className="text-accent-blue" size={24} /> Personal Projects
+                </h2>
+                <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-zinc-500 font-mono">
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[10px] font-semibold">↑</kbd>
+                    <kbd className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[10px] font-semibold">↓</kbd>
+                  </span>
+                  <span>Switch projects</span>
+                </div>
+              </div>
 
               <div className="flex flex-col md:grid md:grid-cols-3 gap-4">
                 {/* Project selector side */}
@@ -322,6 +361,7 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                   {profileConfig.projects.map((proj, idx) => (
                     <button
                       key={proj.name}
+                      ref={(el) => { projectButtonsRef.current[idx] = el; }}
                       onClick={() => setActiveProj(idx)}
                       className={`text-left p-2 sm:p-3 rounded-lg transition-all flex items-center justify-between gap-2 shrink-0 group ${
                         activeProj === idx
@@ -350,9 +390,10 @@ export default function OverlayUI({ currentSection, onSectionChange, onToggleTer
                           <h3 className="text-base sm:text-lg font-bold text-white">{proj.name}</h3>
                           <span className="text-[10px] sm:text-xs text-accent-blue font-semibold shrink-0">{proj.period}</span>
                         </div>
-                        <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                          {proj.description}
-                        </p>
+                        <p 
+                          className="text-xs sm:text-sm text-zinc-300 leading-relaxed [&_b]:font-bold [&_b]:text-white"
+                          dangerouslySetInnerHTML={{ __html: proj.description }}
+                        />
 
                         {/* Project Link */}
                         {proj.link && (
